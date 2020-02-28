@@ -14,10 +14,10 @@ def dg(z):
 
 #solutions we "don't know":
 def f(z):
-    return z**2 + cmath.sin(z)
+    return 5*z**2 +z -37
 
 def df(z):
-    return 
+    return 10*z +1
 
 #calculating the solutions to f=0 to error 10e-4 by newton's method:
 #space = np.linspace(-5,15,num=50)
@@ -27,16 +27,6 @@ def df(z):
 
 fsol_1=newt.iterate_newton(f,df,x_0=5,error=0.0001)
 fsol_2=newt.iterate_newton(f,df,x_0=13,error=0.0001) #solutions to f
-
-# what about when solutions are complex?
-def c(z):
-    return z**2-2*z+2
-def dc(z):
-    return 2*z-2
-#s1=newt.newton(c,dc,-1.5-1.5j)
-#s2=newt.newton(c,dc,s1)
-#s3=newt.newton(c,dc,s2)
-#yes! It can find both complex solutons (in this case 1+1j and 1-1j).
 
 # Now for the actual path tracking.
 
@@ -79,4 +69,4 @@ for i in range(1,N+1):
     t-=1/N
 print(p)#,q)
 print(fsol_1,fsol_2)
-# IT WORKS!!! IT FUCKING WORKS WOOOH!!!
+# It works!
