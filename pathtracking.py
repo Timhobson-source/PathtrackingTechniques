@@ -4,48 +4,61 @@ from math import *
 import numpy as np
 import matplotlib.pyplot as plt
 import newton as newt
+ 
+# EXAMPLE: Path tracking algorithm for a single polynomial equation. 
 
-# solutions we know:
+# Try looking to find the solutions to the equation: f(z) = 5z^2 +z-37 = 0.
+# From the discriminant 1^2 - 4*5*(-37) > 0, we see that there are two real solutions
+
+######################################################################################################
+                   # Newton's method solutions
+######################################################################################################
+
+# g(z)=z^2 -1 = 0 is an equation we know the solutions to, and has the same number of solutions to f(z)=0:
+
 def g(z):
     return z**2-1 #roots 1,-1.
 
 def dg(z):
     return 2*z
 
-#solutions we "don't know":
+# f(z)=0 equation whose solutions we don't know:
+
 def f(z):
     return 5*z**2 +z -37
 
 def df(z):
     return 10*z +1
 
-#calculating the solutions to f=0 to error 10e-4 by newton's method:
-#space = np.linspace(-5,15,num=50)
-#plt.plot(space,[f(s) for s in space],color="red")
-#plt.axhline(0)
-#plt.show() #one real solution
+#calculating the solutions to f=0 to error 10e-5 by newton's method:
 
 fsol_1=newt.iterate_newton(f,df,x_0=5,error=0.0001)
-fsol_2=newt.iterate_newton(f,df,x_0=13,error=0.0001) #solutions to f
+fsol_2=newt.iterate_newton(f,df,x_0=13,error=0.0001) 
 
-# Now for the actual path tracking.
+#####################################################################################
+                     # Pathtracking solutions
+####################################################################################
 
-#Need to define our H as:
+#Need to define our Hessian, H, as:
 
-gamma=0.44+0.77j
+gamma=0.44+0.77j # prevents paths between the roots crossing.
 
 def H(z,t):
     return gamma*t*g(z)+(1-t)*f(z)
 
-def JH(z,t):
+def JH(z,t): # jacobian of H with respect to z i.e. dH/dz in single variable case
     return gamma*t*dg(z)+(1-t)*df(z)
 
 def Dt_H(z,t):
-    return gamma*g(z)-f(z)
+    return gamma*g(z)-f(z) # dH/dt
 
 # Have to solve IVP: p'(t) = -(JH(p(t),t)**(-1))*Dt_H(p(t),t)=F(p(t),t), p(1)= 1, where 1 is a root of gamma. We want p(0).
 
 def euler(x,t,step,func):
+    ''' Sinlge explicit euler step, with the step in the negative t-direction'''
+    # x: initial value
+    # t: initial time
+    # step>0: step in neg t-direction
     return x-step*func(x,t)
 
 def F(x,t):
@@ -58,15 +71,16 @@ def LAonestep(p,t,step):
     return p_1
 
 p=1
-#q=-1
+q=-1
 t=1
 N=500
 for i in range(1,N+1):
-    #r=LAonestep(q,t,-1/N)
+    r=LAonestep(q,t,-1/N)
     s=LAonestep(p,t,-1/N)
     p=s
-    #q=r
+    q=r
     t-=1/N
-print(p)#,q)
-print(fsol_1,fsol_2)
+print('Pathtracking solutions: ',p,q)
+print("Newton's method solutions (for checking)",fsol_1,fsol_2)
+
 # It works!
