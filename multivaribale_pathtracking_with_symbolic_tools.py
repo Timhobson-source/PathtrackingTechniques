@@ -3,8 +3,11 @@
 
 # In[43]:
 
+##########################################################################
 
-#Polynomial system path tracking with symbolic tools usage.
+# Polynomial system path tracking with symbolic tools usage
+
+###########################################################################
 import numpy as np
 import sympy as sp
 import matplotlib.pyplot as plt

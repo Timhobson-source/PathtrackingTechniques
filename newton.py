@@ -1,25 +1,16 @@
-# numerically reproducing figure 14 (PS2 QN1d)
-# We have equation S=1-exp(-k_mean * S).
-# f(x)=1-exp(-u*x), u=k_mean and x=s.
-# f'(x)= u*exp(-u*x)
-from math import *
-import matplotlib.pyplot as plt
-import numpy as np
-import networkx as nx
-
 def newton(g,dg,x=1):
+    '''Returns simple newton iteration for the roots of g(x)'''
     # g: function
     # dg: derivative of g
     # error: error of solution
-    sol = x- g(x)/dg(x)
-    return sol
-
-def g(x):
-    return (x-1)**2
-def dg(x):
-    return 2*(x-1)
+    return x- g(x)/dg(x)
 
 def iterate_newton(g,dg,x_0=1,error=10**(-3)):
+    '''Iterates the newton method to approximate one of the roots of g(x) to a given error'''
+    # g: function
+    # dg: derivative of g
+    # x_0: intial 'guess' of root
+    # error: minimum error to return approximation to
     e=1
     x=x_0
     while e>error:
@@ -27,6 +18,11 @@ def iterate_newton(g,dg,x_0=1,error=10**(-3)):
         e=abs(y-x)
         x=y
     return x
+
+
+
+
+
         
         
    
