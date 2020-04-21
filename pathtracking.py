@@ -55,7 +55,7 @@ def Dt_H(z,t):
 # Have to solve IVP: p'(t) = -(JH(p(t),t)**(-1))*Dt_H(p(t),t)=F(p(t),t), p(1)= 1, where 1 is a root of gamma. We want p(0).
 
 def euler(x,t,step,func):
-    ''' Sinlge explicit euler step, with the step in the negative t-direction'''
+    ''' Single explicit euler step, with the step in the negative t-direction'''
     # x: initial value
     # t: initial time
     # step>0: step in neg t-direction
@@ -65,15 +65,17 @@ def F(x,t):
     return -(JH(x,t)**(-1))*Dt_H(x,t)
 
 def LAonestep(p,t,step):
+    '''Returns a first order prediction of p(t-step), it uses explicit euler method and two newton predictive corrections.'''
     z_0=euler(p,t,step,F)
     z_1=z_0-H(z_0,t)/JH(z_0,t+step)
     p_1=z_1-H(z_1,t+step)/JH(z_1,t+2*step)
     return p_1
 
-p=1
-q=-1
-t=1
-N=500
+# solving the equation:
+p=1 # root1 of g(z)=0
+q=-1 # root2 of g(z)=0
+t=1 # intial 'time'
+N=500 # number of iterations of LAonestep
 for i in range(1,N+1):
     r=LAonestep(q,t,-1/N)
     s=LAonestep(p,t,-1/N)
