@@ -1,8 +1,3 @@
-#!/usr/bin/env python
-# coding: utf-8
-
-# In[43]:
-
 ##########################################################################
 
 # Polynomial system path tracking with symbolic tools usage
@@ -14,6 +9,11 @@ import matplotlib.pyplot as plt
 from mpl_toolkits.mplot3d import Axes3D
 from math import *
 from cmath import *
+
+# You may easily edit this code to your own 2 variable dim=2 polynomial system of equations with two solutions.
+# This can be done by editing 'f1' and 'f2' in the definiton of f(x,y) below. 
+
+# Generalization of this code to solve higher dimensional systems is possible but not as simple.
 
 def f(x,y):
     #system of equations we want to solve (can be of higher dimension)
@@ -88,6 +88,9 @@ def iterate2D(x0,y0,t0,dt):
     z2=z1-np.dot(np.linalg.inv(JH(z1[0],z1[1],t0+2*dt)),H(z1[0],z1[1],t0+dt))
     return z2
 
+
+# Using above functions to implement pathtracking algorithm and find the solutions:
+
 X1=complex(1,0)
 Y1=complex(1,0)
 X2=complex(1,0)
@@ -110,15 +113,15 @@ for i in range(0,N):
     Y3=s3[1]
     T-=1/N
 
+# approximated solutions with pathtracking:    
+
 print(round(X1,3),round(Y1,3),"\t\t\tf(sol1): ",round(np.linalg.norm(f(X1,Y1)))) #sol1
 print(round(X2,3),round(Y2,3),"\t\t\tf(sol2): ",round(np.linalg.norm(f(X2,Y2)))) #sol2
 print(round(X3,3),round(Y3,3),"\t\t\tf(sol3): ",round(np.linalg.norm(f(X3,Y3)))) #sol3
 
 
-# In[42]:
 
-
-# exact solutions comparison
+# exact solutions comparison from analytic methods (for the given example)
 sol1=[complex(0.5,0.5*sqrt(3)),complex(-0.5,0.5*sqrt(3))]
 sol2=[-1,1]
 sol3=[complex(0.5,-0.5*sqrt(3)),complex(-0.5,-0.5*sqrt(3))]
@@ -128,7 +131,6 @@ print("\nsol3: ",sol3)
 #As we can see, it works! And has generated all the solutions.
 
 
-# In[ ]:
 
 
 
