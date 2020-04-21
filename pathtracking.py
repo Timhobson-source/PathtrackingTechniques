@@ -1,8 +1,6 @@
-# Path tracking attempt.
 from cmath import *
 from math import *
 import numpy as np
-import matplotlib.pyplot as plt
 import newton as newt
  
 # EXAMPLE: Path tracking algorithm for a single polynomial equation. 
