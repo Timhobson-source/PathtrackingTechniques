@@ -10,7 +10,7 @@ The method used involves creating a homotopy between the images of a polynomial 
 
 - single_variable_pathtracking.py: Code for and example of single variable pathtracking, solutions verified via newton's method.
 
-- multivariable_pathtracking.py: Code for, and example of, pathtracking for a system of 2 variables and 2 equations (prerequisite for pathtracking is no. of variables=system dimesnion).
+- multivariable_pathtracking.py: Code for, and example of, pathtracking for a system of 2 variables and 2 equations (assuming a square sytem i.e. number of variables=system dimesnion).
 
 - pathtracking3.pdf: A pdf publish of multivariable_pathtracking.py in a jupyter notebook.
 
