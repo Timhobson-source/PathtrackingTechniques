@@ -88,38 +88,39 @@ def iterate2D(x0, y0, t0, dt):
     return z2
 
 
-X1 = complex(1, 0)
-Y1 = complex(1, 0)
-X2 = complex(-1, 0)
-Y2 = complex(1, 0)
-X3 = complex(-1, 0)
-Y3 = complex(-1, 0)
-T = 1
-N = 100
+if __name__ == '__main__':
+    X1 = complex(1, 0)
+    Y1 = complex(1, 0)
+    X2 = complex(-1, 0)
+    Y2 = complex(1, 0)
+    X3 = complex(-1, 0)
+    Y3 = complex(-1, 0)
+    T = 1
+    N = 100
 
-for i in range(0, N):
-    s1 = iterate2D(X1, Y1, T, dt=-1/N)
-    s2 = iterate2D(X2, Y2, T, dt=-1/N)
-    s3 = iterate2D(X3, Y3, T, dt=-1/N)
-    X1 = s1[0]
-    Y1 = s1[1]
-    X2 = s2[0]
-    Y2 = s2[1]
-    X3 = s3[0]
-    Y3 = s3[1]
-    T -= 1/N
+    for i in range(0, N):
+        s1 = iterate2D(X1, Y1, T, dt=-1/N)
+        s2 = iterate2D(X2, Y2, T, dt=-1/N)
+        s3 = iterate2D(X3, Y3, T, dt=-1/N)
+        X1 = s1[0]
+        Y1 = s1[1]
+        X2 = s2[0]
+        Y2 = s2[1]
+        X3 = s3[0]
+        Y3 = s3[1]
+        T -= 1/N
 
-print(X1, Y1)  # sol1
-print(X2, Y2)  # sol2
-print(X3, Y3)  # sol3
+    print(X1, Y1)  # sol1
+    print(X2, Y2)  # sol2
+    print(X3, Y3)  # sol3
 
-# exact solutions comparison
-sol1 = [complex(0.5, 0.5*math.sqrt.sqrt(3)),
-        complex(-0.5, 0.5*math.sqrt.sqrt(3))]
-sol2 = [-1, 1]
-sol3 = [complex(0.5, -0.5*math.sqrt.sqrt(3)),
-        complex(-0.5, -0.5*math.sqrt.sqrt(3))]
-print("sol1: ", sol1)
-print("\nsol2: ", sol2)
-print("\nsol3: ", sol3)
-# As we can see, it works! And has generated all the solutions.
+    # exact solutions comparison
+    sol1 = [complex(0.5, 0.5*math.sqrt(3)),
+            complex(-0.5, 0.5*math.sqrt(3))]
+    sol2 = [-1, 1]
+    sol3 = [complex(0.5, -0.5*math.sqrt(3)),
+            complex(-0.5, -0.5*math.sqrt(3))]
+    print("sol1: ", sol1)
+    print("\nsol2: ", sol2)
+    print("\nsol3: ", sol3)
+    # As we can see, it works! And has generated all the solutions.

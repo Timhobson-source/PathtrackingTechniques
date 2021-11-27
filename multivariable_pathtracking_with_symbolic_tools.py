@@ -9,7 +9,6 @@ Generalization of this code to solve higher dimensional systems is possible but 
 """
 import numpy as np
 import sympy as sp
-import matplotlib.pyplot as plt
 import math
 
 
@@ -18,25 +17,25 @@ def f(x, y):
     return np.array([x**2 - y, x * y + 1])  # f(x,y)=[f1,f2]
 
 
-X = np.linspace(-10, 10, num=100)
-Y = np.linspace(-10, 10, num=100)
-u, v = np.meshgrid(X, Y)
-f1 = f(u, v)[0]
-f2 = f(u, v)[1]
+# X = np.linspace(-10, 10, num=100)
+# Y = np.linspace(-10, 10, num=100)
+# u, v = np.meshgrid(X, Y)
+# f1 = f(u, v)[0]
+# f2 = f(u, v)[1]
 
-# plotting surfaces z=f1, z=f2
-fig = plt.figure(figsize=(8, 8))
-ax1 = fig.add_subplot(211, projection='3d')
-ax2 = fig.add_subplot(212, projection='3d')
-surf1 = ax1.plot_surface(u, v, f1, color="r")
-surf2 = ax2.plot_surface(u, v, f2, color="b")
-ax1.set_xlabel("$x$")
-ax2.set_xlabel("$x$")
-ax1.set_ylabel("$y$")
-ax2.set_ylabel("$y$")
-ax1.set_zlabel("$f 1$")
-ax2.set_zlabel("$f 2$")
-plt.show()
+# # plotting surfaces z=f1, z=f2
+# fig = plt.figure(figsize=(8, 8))
+# ax1 = fig.add_subplot(211, projection='3d')
+# ax2 = fig.add_subplot(212, projection='3d')
+# surf1 = ax1.plot_surface(u, v, f1, color="r")
+# surf2 = ax2.plot_surface(u, v, f2, color="b")
+# ax1.set_xlabel("$x$")
+# ax2.set_xlabel("$x$")
+# ax1.set_ylabel("$y$")
+# ax2.set_ylabel("$y$")
+# ax1.set_zlabel("$f 1$")
+# ax2.set_zlabel("$f 2$")
+# plt.show()
 
 
 # Path tracking section
@@ -94,45 +93,44 @@ def iterate2D(x0, y0, t0, dt):
     return z2
 
 
-# Using above functions to implement pathtracking algorithm and find the solutions:
+if __name__ == '__main__':
+    # Using above functions to implement pathtracking algorithm and find the solutions:
 
-X1 = complex(1, 0)
-Y1 = complex(1, 0)
-X2 = complex(1, 0)
-Y2 = complex(-1, 0)
-X3 = complex(-1, 0)
-Y3 = complex(-1, 0)
+    X1 = complex(1, 0)
+    Y1 = complex(1, 0)
+    X2 = complex(1, 0)
+    Y2 = complex(-1, 0)
+    X3 = complex(-1, 0)
+    Y3 = complex(-1, 0)
 
-T = 1
-N = 1000
+    T = 1
+    N = 1000
+    for i in range(0, N):
+        s1 = iterate2D(X1, Y1, T, dt=-1/N)
+        s2 = iterate2D(X2, Y2, T, dt=-1/N)
+        s3 = iterate2D(X3, Y3, T, dt=-1/N)
+        X1 = s1[0]
+        Y1 = s1[1]
+        X2 = s2[0]
+        Y2 = s2[1]
+        X3 = s3[0]
+        Y3 = s3[1]
+        T -= 1/N
 
-for i in range(0, N):
-    s1 = iterate2D(X1, Y1, T, dt=-1/N)
-    s2 = iterate2D(X2, Y2, T, dt=-1/N)
-    s3 = iterate2D(X3, Y3, T, dt=-1/N)
-    X1 = s1[0]
-    Y1 = s1[1]
-    X2 = s2[0]
-    Y2 = s2[1]
-    X3 = s3[0]
-    Y3 = s3[1]
-    T -= 1/N
+    # approximated solutions with pathtracking:
 
-# approximated solutions with pathtracking:
+    print(round(X1, 3), round(Y1, 3), "\t\t\tf(sol1): ",
+          round(np.linalg.norm(f(X1, Y1))))  # sol1
+    print(round(X2, 3), round(Y2, 3), "\t\t\tf(sol2): ",
+          round(np.linalg.norm(f(X2, Y2))))  # sol2
+    print(round(X3, 3), round(Y3, 3), "\t\t\tf(sol3): ",
+          round(np.linalg.norm(f(X3, Y3))))  # sol3
 
-print(round(X1, 3), round(Y1, 3), "\t\t\tf(sol1): ",
-      round(np.linalg.norm(f(X1, Y1))))  # sol1
-print(round(X2, 3), round(Y2, 3), "\t\t\tf(sol2): ",
-      round(np.linalg.norm(f(X2, Y2))))  # sol2
-print(round(X3, 3), round(Y3, 3), "\t\t\tf(sol3): ",
-      round(np.linalg.norm(f(X3, Y3))))  # sol3
-
-
-# exact solutions comparison from analytic methods (for the given example)
-sol1 = [complex(0.5, 0.5*math.sqrt(3)), complex(-0.5, 0.5*math.sqrt(3))]
-sol2 = [-1, 1]
-sol3 = [complex(0.5, -0.5*math.sqrt(3)), complex(-0.5, -0.5*math.sqrt(3))]
-print("sol1: ", sol1)
-print("\nsol2: ", sol2)
-print("\nsol3: ", sol3)
-# As we can see, it works! And has generated all the solutions.
+    # exact solutions comparison from analytic methods (for the given example)
+    sol1 = [complex(0.5, 0.5*math.sqrt(3)), complex(-0.5, 0.5*math.sqrt(3))]
+    sol2 = [-1, 1]
+    sol3 = [complex(0.5, -0.5*math.sqrt(3)), complex(-0.5, -0.5*math.sqrt(3))]
+    print("sol1: ", sol1)
+    print("\nsol2: ", sol2)
+    print("\nsol3: ", sol3)
+    # As we can see, it works! And has generated all the solutions.
