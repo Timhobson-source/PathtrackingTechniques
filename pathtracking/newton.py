@@ -2,7 +2,6 @@ def newton(g, dg, x=1):
     '''Returns simple newton iteration for the roots of g(x)'''
     # g: function
     # dg: derivative of g
-    # error: error of solution
     return x - g(x)/dg(x)
 
 
