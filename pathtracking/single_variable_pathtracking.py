@@ -96,3 +96,6 @@ print('Pathtracking solutions: ', p, q)
 print("Newton's method solutions (for checking)", fsol_1, fsol_2)
 
 # It works!
+
+if __name__ == '__main__':
+    pass
