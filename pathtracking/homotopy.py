@@ -11,6 +11,7 @@ class Homotopy:
     Only works for single variable polynomials.
 
     TODO - add docs on homotopy.
+
     """
 
     def __init__(self, start_poly: Callable, end_poly: Callable, gamma=DEFAULT_GAMMA):
@@ -25,7 +26,9 @@ class Homotopy:
     def _setup_symbols():
         return sp.symbols('x t')
 
-    @property
-    def show_path_symbolised(self):
+    def path_symbolised(self):
         args = self._setup_symbols()
         return self.path(*args)
+
+    def __repr__(self):
+        return str(self.path_symbolised)
