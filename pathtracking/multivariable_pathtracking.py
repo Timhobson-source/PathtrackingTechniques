@@ -95,7 +95,7 @@ if __name__ == '__main__':
     Y2 = complex(1, 0)
     X3 = complex(-1, 0)
     Y3 = complex(-1, 0)
-    T = 1
+    T = 1.0
     N = 100
 
     for i in range(0, N):

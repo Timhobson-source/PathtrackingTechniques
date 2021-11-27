@@ -84,7 +84,7 @@ def LAonestep(p, t, step):
 # solving the equation:
 p = 1  # root1 of g(z)=0
 q = -1  # root2 of g(z)=0
-t = 1  # intial 'time'
+t = 1.0  # intial 'time'
 N = 500  # number of iterations of LAonestep
 for i in range(1, N+1):
     r = LAonestep(q, t, -1/N)
